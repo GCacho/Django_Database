@@ -23,7 +23,7 @@ Databases with django
 ## Manipular Base de Datos
 - python3 manage.py shell
 ### Consola Interactiva
-- FROM orders.models import Clientes
+- from orders.models import Clientes
 ### Ingresar Datos
 - art1 = Clientes.objects.create(nombre="Guillermo", direccion="mundo",email="gcacho@gmail.com", tfno="1692238") -> Insertar en una linea
 - art2 = Clientes(nombre="Guillermo", direccion="mundo",email="gcacho@gmail.com", tfno="1692238") -> Insertar en 2 lineas
@@ -32,11 +32,17 @@ Databases with django
 - art1.nombre='holo' -> cambia el titulo
 - art1.save()
 ### Eliminar Datos
-- borrar=Clientes.objects.get(id="1") -> Para guardar el criterio y borrar el articulo con id=1
+- borrar=Clientes.objects.get(id=1) -> Para guardar el criterio y borrar el articulo con id=1
 - borrar.delete()
 ### Hacer una consulta / Query (SELECT)
 - Lista=Clientes.objects.all() -> Guarda todos los registros de la tabla Articulos
 - Lista -> Muestra los objetos
 - Lista.query.__str__() -> Muestra el SELECT generado
-## Revision de Aplicaciones
-- python3 manage.py check orders
+#### Consulta con condicion
+- from orders.models import Articulos
+- Articulos.objects.filter(seccion='decoracion')
+- Articulos.objects.filter(nombre='mesa', seccion='decoracion')
+- Articulos.objects.filter(seccion='ferreteria', precio>50) -> No funciona con el shell <> se puede utilizar precio__gte=50 para mayor que y precio__lte=50 para menor de
+- Articulos.objects.filter(seccion='ferreteria', precio__range(10,150)) -> Rango de precio de 10 a 150
+- Articulos.objects.filter(precio_gte=50).order_by('precio') -> Ordena de menor a mayor por precio
+- Articulos.objects.filter(precio_gte=50).order_by('-precio') -> Ordena de mayor a menor por precio
